@@ -1,0 +1,3 @@
+[submodule "BI-APP"]
+	path = BI-APP
+	url = https://github.com/Seeqgold/Contact-page
