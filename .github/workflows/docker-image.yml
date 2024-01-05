@@ -1,0 +1,29 @@
+
+
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Build Docker Images
+      run: |
+        docker build -t seeqgold/app1-image:v1 -f app1/Dockerfile .
+        docker build -t seeqgold/app2-image:v2 -f app2/Dockerfile .
+
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    - name: Push Docker Images to Docker Hub
+      run: |
+        docker push seeqgold/app1-image:v1
+        docker push seeqgold/app2-image:v2
