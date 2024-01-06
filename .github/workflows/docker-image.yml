@@ -27,3 +27,23 @@ jobs:
       run: |
         docker push seeqgold/app1-image:v1
         docker push seeqgold/app2-image:v2
+
+        apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: <certificate-authority-data>
+    server: <kube-apiserver-url>
+  name: <cluster-name>
+contexts:
+- context:
+    cluster: <cluster-name>
+    user: <username>
+  name: <context-name>
+current-context: <context-name>
+kind: Config
+preferences: {}
+users:
+- name: <username>
+  user:
+    token: <your-token>
+
